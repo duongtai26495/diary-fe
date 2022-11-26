@@ -4,24 +4,104 @@
     --border-color: #ffff;
     --text-white : rgba(250,250,250,1);
     --text-black : rgba(50,50,50,1);
-    --shadow-color : rgba(100,100,100,.5);
+    --shadow-color : rgba(100,100,100,.3);
+}
+
+body{
+    background-image: 
+    linear-gradient(300deg,
+        var(--primary-color), 
+        var(--secondary-color));
 }
 .header-wrapper{
     width: 100%;
-    padding:5px;
-    background-image: 
-    linear-gradient(
-        var(--primary-color), 
-        var(--secondary-color));
+}
+.container{
+    max-width: 1200px;
+}
+.header-wrapper-inner{
+    margin: 10px auto 0px auto;
+    border-radius: 10px;
+    padding:10px 15px;
+    background-color: rgba(255, 255, 255, .6);
+    box-shadow: 2px 2px 4px 0px var(--shadow-color);
 }
 .menu-wrapper{
     display: flex;
     flex-direction: row;
+    flex: 1;
+    justify-content: center;
 }
 .menu-item{
-    font-weight: 400;
-    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin: 5px;
+    margin: 5px 10px;
+    color:var(--text-black);
+    transition: 200ms ease-in;
+    position: relative;
+}
+.menu-item:hover{
+    color:var(--primary-color);
+}
+
+.logo-text {
+    font-size:20px;
+    text-transform:uppercase;
+    color:var(--text-black);
+}
+.authen-view-box{
+    width: 200px;
+    position: absolute;
+    z-index: 100;
+    top: 1.5rem;
+    left: 1.5rem;
+    background-color: white;
+    transition: 500ms ease-in;
+    border-radius: 5px;
+    display: none;
+}
+
+.join-now-item:hover .authen-view-box{
+    transition: 300ms ease-in;
+    display: block;
+}
+
+.image-box{
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    transition: 300ms ease-in;
+}
+
+.card-box {
+    width: 100%;
+    background-color: rgba(250, 250, 250, .8);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px 0px var(--shadow-color);
+    float: left;
+    margin-bottom: 15px;
+    break-inside: avoid;
+    transition: 300ms ease-in-out;
+}
+
+.card-box:hover {
+    background-color: var(--text-white);
+    box-shadow: 6px 6px 7px 0px var(--shadow-color);
+}
+.list-card-wrapper{
+    column-gap: 15px;
+    transition: 300ms ease-in-out;
+}
+
+.card-content{
+    text-align: justify;
+}
+
+.img-spinner{
+    width: 24px;
 }
