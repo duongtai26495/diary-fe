@@ -37,10 +37,10 @@ const loginWithUsernamePassword = async (User) => {
     
    return await axios(config)
     .then(function (response) {
-      console.log( response.data);
+      return response
     })
     .catch(function (error) {
-      console.log(error);
+      return error.response
     });
     
 }
