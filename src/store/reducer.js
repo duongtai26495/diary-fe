@@ -4,10 +4,11 @@ import {
     UPDATE_LOGIN_STATE, 
     UPDATE_SHOW_MENU_BAR, 
     SORT_LAST_EDITED_DESC,
-    UPDATE_USER_INFO} from "../api/constants";
+    UPDATE_USER_INFO,
+    LOCAL_LOGIN_STATE} from "../api/constants";
     
 const initState = {
-    userLoginState: false,
+    userLoginState: localStorage.getItem(LOCAL_LOGIN_STATE) ?? false,
     leftMenuBar: false,
     diaries:[],
     sort: SORT_LAST_EDITED_DESC,

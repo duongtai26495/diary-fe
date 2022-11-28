@@ -1,4 +1,4 @@
-export const HOST_URL = "http://192.168.1.14:8080/"
+export const HOST_URL = "http://192.168.1.17:8080/"
 
 export const UPDATE_LOGIN_STATE = 'update_login_state'
 export const LOCAL_LOGIN_STATE = 'local_login_state'
@@ -13,7 +13,7 @@ export const FULLNAME_LOCAL = 'fullname_local'
 export const EMAIL_LOCAL = 'email_local'
 export const GENDER_LOCAL = 'gender_local'
 export const PROFILE_PHOTO_LOCAL = 'profile_photo_local'
-
+export const USER_LOCAL = 'user_local'
 export const SORT_DIARY = 'sort_diary'
 export const SORT_CREATED_ASC = 'create_at_asc'
 export const SORT_CREATED_DESC = 'create_at_desc'

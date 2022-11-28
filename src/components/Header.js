@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ACCESS_TOKEN, LOCAL_LOGIN_STATE } from '../api/constants'
+import { USER_LOCAL } from '../api/constants'
 import { useStore } from '../store'
+import ProfileImageHeader from './ProfileImageHeader'
 const Header = () => {
   const [state, dispatch] = useStore()
-  const { userLoginState, updateUserInfo } = state
+  const { userLoginState } = state
+  const [user, setUser] = useState({})
+
 
   useEffect(() => {
-
+    loadUser()
+    console.log(userLoginState)
   }, [userLoginState])
 
-  const logout = () => {
-
+  const loadUser = () => {
+      let local_user = JSON.parse(localStorage.getItem(USER_LOCAL))
+      if(local_user){
+        console.log(local_user)
+        setUser(local_user)
+      }
   }
 
   return (
@@ -23,13 +31,10 @@ const Header = () => {
         <li className='menu-item cursor-pointer text-sm xl:text-base'><Link to={"/"}>Home</Link></li>
         <li className='menu-item cursor-pointer text-sm xl:text-base'><Link to={"/"}>Contact</Link></li>
         <li className='menu-item cursor-pointer text-sm xl:text-base'><Link to={"/"}>About us</Link></li>
-        {
-          localStorage.getItem(LOCAL_LOGIN_STATE)  === 'true'
-            ?
-            <li className='menu-item cursor-pointer text-sm xl:text-base join-now-item'>LOG OUT</li>
-            :
-            <li className='menu-item cursor-pointer text-sm xl:text-base join-now-item'><Link to={"/login"}>Join Now</Link> </li>
-        }
+        <li className='menu-item cursor-pointer text-sm xl:text-base join-now-item'><Link to={"/profile"}>
+          {userLoginState ? <ProfileImageHeader username={user.username} />: "Join now"}
+          </Link></li>
+        
       </ul>
     </div>
   )

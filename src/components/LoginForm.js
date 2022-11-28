@@ -5,12 +5,15 @@ import { loginWithUsernamePassword } from '../api/functions'
 import CustomButton from '../components/CustomButton'
 import { useStore } from '../store'
 import { updateLoginState } from '../store/actions'
-const LoginPage = () => {
+const LoginForm = () => {
+
     const [state, dispatch] = useStore()
+    const { userLoginState, updateUserInfo } = state
     const [isLoading, setLoading] = useState(false)
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
     const [statusLogin, setStatusLogin] = useState('')
+
     const LoginWithAPI = async () =>{
         setLoading(true)
         
@@ -24,6 +27,7 @@ const LoginPage = () => {
           localStorage.setItem(ACCESS_TOKEN, result.data.access_token)
           localStorage.setItem(LOCAL_LOGIN_STATE, true)
           dispatch(updateLoginState(true))
+          setLoading(false)
         }
         if(result.status === CODE_LOGIN_FAIL){
           setStatusLogin("Login Fail")
@@ -52,4 +56,5 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+
+export default LoginForm
