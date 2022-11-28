@@ -2,6 +2,7 @@ import React from 'react'
 import { HOST_URL } from '../api/constants'
 
 const ProfileImageHeader = ({username}) => {
+  
     let url = HOST_URL+"user/images/"+username
   return (
     <div className='flex flex-row'>

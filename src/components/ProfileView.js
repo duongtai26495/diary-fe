@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { HOST_URL, USER_LOCAL } from '../api/constants'
 import { logoutUser } from '../api/functions'
 import { useStore } from '../store'
 import { updateLoginState } from '../store/actions'
 import CustomButton from './CustomButton'
 
-const ProfileView = ({user}) => {
+const ProfileView = () => {
 
     const [state, dispatch] = useStore()
+    const { userDataLocal } = state
 
+    var user = userDataLocal ? userDataLocal : JSON.parse(localStorage.getItem(USER_LOCAL))
     const logout = () =>{
         logoutUser()
         dispatch(updateLoginState(false))

@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { getAllDiary } from '../api/functions';
 import CardList from '../components/CardList';
-import Header from '../components/Header';
 
 import { SORT_CREATED_ASC, SORT_CREATED_DESC, SORT_LAST_EDITED_ASC, SORT_LAST_EDITED_DESC } from '../api/constants'
 function HomePage() {

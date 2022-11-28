@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ACCESS_TOKEN, CODE_LOGIN_FAIL, CODE_NOT_PERMISSION, CODE_SUCCESS, LOCAL_LOGIN_STATE } from '../api/constants'
+import { ACCESS_TOKEN, LOCAL_LOGIN_STATE, USER_LOCAL } from '../api/constants'
 import { loginWithUsernamePassword } from '../api/functions'
 import CustomButton from '../components/CustomButton'
 import { useStore } from '../store'
-import { updateLoginState } from '../store/actions'
+import { loadUserLocal, updateLoginState } from '../store/actions'
 const LoginForm = () => {
 
     const [state, dispatch] = useStore()
-    const { userLoginState, updateUserInfo } = state
     const [isLoading, setLoading] = useState(false)
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
@@ -23,17 +22,12 @@ const LoginForm = () => {
         }
         setStatusLogin('')
         const result = await loginWithUsernamePassword(User);
-        if(result.status === CODE_SUCCESS){
-          localStorage.setItem(ACCESS_TOKEN, result.data.access_token)
-          localStorage.setItem(LOCAL_LOGIN_STATE, true)
-          dispatch(updateLoginState(true))
-          setLoading(false)
-        }
-        if(result.status === CODE_LOGIN_FAIL){
-          setStatusLogin("Login Fail")
-        }
-        if(result.status === CODE_NOT_PERMISSION){
-          setStatusLogin("Username or password incorrect")
+        if(result){
+        dispatch(loadUserLocal(result))
+        localStorage.setItem(USER_LOCAL,JSON.stringify(result))
+        localStorage.setItem(LOCAL_LOGIN_STATE, true)
+        localStorage.setItem(ACCESS_TOKEN,result.token)
+        dispatch(updateLoginState(true))
         }
         setLoading(false)
     }

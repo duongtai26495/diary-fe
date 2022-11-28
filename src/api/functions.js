@@ -1,28 +1,23 @@
-import { ACCESS_TOKEN, HOST_URL, LOCAL_LOGIN_STATE, USERNAME_LOCAL, USER_LOCAL } from "./constants"
+import { ACCESS_TOKEN, HOST_URL, LOCAL_LOGIN_STATE, USER_LOCAL } from "./constants"
 import axios from "axios";
+
+const runAPI = async (url) => {
+  return (await fetch(url)).json();
+}
 
 const getAllDiary = async () => {
   let url = HOST_URL
-  var config = {
-    method: 'GET',
-    url,
-    headers: {}
-  };
-
-  return await axios(config)
-    .then(function (response) {
-      return response.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-
+  const data = await runAPI(url);
+  return data
 }
 
 const loginWithUsernamePassword = async (User) => {
+    const data = await getAccessToken(User);
+    const result = await getDataUserLogin(data);
+    return result
+}
 
-
+const getAccessToken = async (User) => {
   var FormData = require('form-data');
   var data = new FormData();
   data.append('username', User.username);
@@ -34,48 +29,42 @@ const loginWithUsernamePassword = async (User) => {
     data
   };
 
-  return await axios(config)
+ return await axios(config)
     .then(function (response) {
       let token = response.data.access_token
-     getDataUserLogin(token, User.username)
-      return response
-    })
-    .then((result)=>{
-      return result
+      let data = { username: User.username, token }
+      return data
     })
     .catch(function (error) {
-      return error.response
+      console.log(error);
     });
-
 }
 
-const getDataUserLogin = async (token, username) => {
+const getDataUserLogin = async (data) => {
 
-  let url = HOST_URL + "user/profile/" + username;
+  let url = HOST_URL + "user/profile/" + data.username;
 
 
   var config = {
     method: 'GET',
     url,
     headers: {
-      'Authorization': 'Bearer '+token
+      'Authorization': 'Bearer ' + data.token
     }
   };
 
- return await axios(config)
+  return await axios(config)
     .then(function (response) {
       var user = response.data.data
       user = {
         ...user,
-        token
+        token: data.token
       }
-      localStorage.setItem(USER_LOCAL, JSON.stringify(user))
+      return user
     })
     .catch(function (error) {
       console.log(error);
     });
-
-
 }
 
 const logoutUser = () => {

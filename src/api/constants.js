@@ -21,6 +21,7 @@ export const SORT_LAST_EDITED_ASC = 'last_edited_asc'
 export const SORT_LAST_EDITED_DESC = 'last_edited_desc'
 
 export const UPDATE_USER_INFO = 'update_user_info'
+export const USER_DATA = 'user_data_local'
 
 export const CODE_LOGIN_FAIL = 500
 export const CODE_NOT_PERMISSION = 401

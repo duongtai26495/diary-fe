@@ -1,4 +1,4 @@
-import { ADD_DIARY, GET_DIARIES, SORT_DIARY, UPDATE_LOGIN_STATE, UPDATE_SHOW_MENU_BAR, UPDATE_USER_INFO } from "../api/constants";
+import { ADD_DIARY, GET_DIARIES, SORT_DIARY, UPDATE_LOGIN_STATE, UPDATE_SHOW_MENU_BAR, USER_DATA } from "../api/constants";
 
 export const updateLoginState = payload => ({
     type:UPDATE_LOGIN_STATE,
@@ -25,8 +25,7 @@ export const changeSort = payload => ({
     payload
 })
 
-
-export const updateUserInfo = payload => ({
-    type:UPDATE_USER_INFO,
+export const loadUserLocal = payload => ({
+    type: USER_DATA,
     payload
 })
