@@ -45,7 +45,7 @@ function HomePage() {
 
 
   return (
-      <CardList listDiaries={updateSort(diaries)} />
+      <CardList styles={'columns-2 md:columns-3 lg:columns-4 xl:columns-5'} listDiaries={updateSort(diaries)} />
   );
 }
 

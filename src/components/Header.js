@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { USER_LOCAL } from '../api/constants'
+import { LOCAL_LOGIN_STATE, USER_LOCAL } from '../api/constants'
 import { useStore } from '../store'
 import ProfileImageHeader from './ProfileImageHeader'
+
 const Header = () => {
   const [state, dispatch] = useStore()
   const { userLoginState, userDataLocal } = state
@@ -19,7 +20,7 @@ const Header = () => {
         <li className='menu-item cursor-pointer text-sm xl:text-base'><Link to={"/"}>Contact</Link></li>
         <li className='menu-item cursor-pointer text-sm xl:text-base'><Link to={"/"}>About us</Link></li>
         <li className='menu-item cursor-pointer text-sm xl:text-base join-now-item'><Link to={"/profile"}>
-          {userLoginState ? <ProfileImageHeader username={user.username} />: "Join now"}
+          {localStorage.getItem(LOCAL_LOGIN_STATE) ? <ProfileImageHeader username={user.username} />: "Join now"}
           </Link></li>
         
       </ul>

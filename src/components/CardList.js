@@ -3,12 +3,11 @@ import DiaryCard from "./DiaryCard"
 
 
 
-const CardList = ({listDiaries}) => {
+const CardList = ({listDiaries, styles}) => {
 
     var diaries = listDiaries
-  
     return (
-        <div className='list-card-wrapper columns-2 md:columns-3 lg:columns-4 xl:columns-5'>
+        <div className={'list-card-wrapper '+styles}>
            {
              diaries?.map((diary, index) => {
                 return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css';
-import { HomePage, LoginPage, ProfilePage } from './screens';
+import { DiaryContent, HomePage, LoginPage, NewDiary, ProfilePage } from './screens';
 import { Route, Routes } from "react-router-dom"
 import Header from './components/Header';
 import { useStore } from './store';
@@ -15,6 +15,8 @@ const App = () => {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/diary=:id' element={<DiaryContent/>} />
+        <Route path='/diary/new' element={<NewDiary/>} />
       </Routes>
       </div>
     </div>

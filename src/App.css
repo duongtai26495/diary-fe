@@ -8,6 +8,7 @@
 }
 
 body{
+    min-height: 100vh;
     background-image: 
     linear-gradient(300deg,
         var(--primary-color), 
@@ -111,6 +112,7 @@ body{
     background-repeat: no-repeat;
     border-radius: 50%;
     transition: 300ms ease-in;
+    background-color: white;
     
 }
 .profile-view-image{
@@ -122,12 +124,58 @@ body{
     background-repeat: no-repeat;
     border-radius: 50%;
     transition: 300ms ease-in;
+    position: relative;
+    background-color: white;
 }
 
 .card-box:hover {
     transform: translateY(-0.3rem);
 }
 
+.change-iamge-profile {
+    position: absolute;
+    bottom: 0;
+    z-index: 99;
+}
+
+.preview-select-image{
+    width: 300px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+}
+.sticky-side-bar {
+    height: fit-content;
+    max-height: 500px;
+    top: 1rem;
+}
+.feature-image-diary {
+    height: 300px;
+    max-height: 600px;
+    width: 100%; 
+    overflow: hidden;
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    transition: 300ms ease-in;
+}
+.preview-image-diary{
+    width: 100%;
+    height: 400px;
+    background-color: #06beb6;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: 200ms ease-in;
+    position: relative;
+}
+
+.select-f-image{
+    position: absolute;
+    bottom: 0;
+    
+}
 @media only screen and (max-width: 1024px) {
     .card-box:hover {
         transform: none;
