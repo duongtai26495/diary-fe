@@ -7,12 +7,47 @@
     --shadow-color : rgba(100,100,100,.3);
 }
 
+@font-face {
+    font-family: "DancingScript";
+    src: url("fonts/DancingScript-Medium.ttf");
+}
+@font-face {
+    font-family: "Nunito";
+    src: url("fonts/Nunito-Bold.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Nunito";
+    src: url("fonts/Nunito-BoldItalic.ttf");
+    font-style: italic;
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Nunito";
+    src: url("fonts/Nunito-Italic.ttf");
+    font-style: italic;
+}
+@font-face {
+    font-family: "Nunito";
+    src: url("fonts/Nunito-Regular.ttf");
+}
+@font-face {
+    font-family: "Nunito";
+    src: url("fonts/Nunito-SemiBold.ttf");
+    font-weight: 500;
+}
 body{
+    font-family: 'Nunito';
     min-height: 100vh;
     background-image: 
     linear-gradient(300deg,
         var(--primary-color), 
         var(--secondary-color));
+}
+.app-name{
+    font-family: 'DancingScript';
+    text-transform: capitalize;
+    font-size: 25px;
 }
 .header-wrapper{
     width: 100%;
@@ -28,7 +63,6 @@ body{
     box-shadow: 2px 2px 4px 0px var(--shadow-color);
 }
 .menu-wrapper{
-    display: flex;
     flex-direction: row;
     flex: 1;
     justify-content: center;
@@ -39,6 +73,7 @@ body{
     color:var(--text-black);
     transition: 200ms ease-in;
     position: relative;
+    font-weight: 500;
 }
 .menu-item:hover{
     color:var(--primary-color);
@@ -151,8 +186,7 @@ body{
     top: 1rem;
 }
 .feature-image-diary {
-    height: 300px;
-    max-height: 600px;
+    height: 600px;
     width: 100%; 
     overflow: hidden;
     background-position: center;

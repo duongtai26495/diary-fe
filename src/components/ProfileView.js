@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { HOST_URL, USER_LOCAL } from '../api/constants'
-import { getDiaryByAuthor, logoutUser, uploadImageAPI } from '../api/functions'
+import { HOST_URL, SORT_LAST_EDITED_DESC, USER_LOCAL } from '../api/constants'
+import { getAllDiaryByAuthor, getDiaryByAuthor, logoutUser, sortDiaries, uploadImageAPI } from '../api/functions'
 import { useStore } from '../store'
 import { loadUserLocal, updateLoginState } from '../store/actions'
 import CustomButton from './CustomButton'
 import CardList from './CardList'
 import GenderView from './GenderView'
+
 const ProfileView = () => {
 
   const [state, dispatch] = useStore()
@@ -13,6 +14,7 @@ const ProfileView = () => {
   const [labelUpload, setLabelUpload] = useState('Edit Image')
   const [diaries, setDiaries] = useState([])
   const [imageSelected, setImageSelected] = useState()
+  const [sort, setSort] = useState(SORT_LAST_EDITED_DESC)
 
   var user = userDataLocal ? userDataLocal : JSON.parse(localStorage.getItem(USER_LOCAL))
   const logout = () => {
@@ -27,14 +29,24 @@ const ProfileView = () => {
   const getDiary = async () => {
     if (userDataLocal) {
       var data = {
-        username: userDataLocal.username,
         token: userDataLocal.token
       }
-      const result = await getDiaryByAuthor(data)
-      setDiaries(result)
+      const result = await getAllDiaryByAuthor(data)
+      const listDiaries = updateSort(result)
+      setDiaries(listDiaries)
     }
 
   }
+
+  const updateSort = list => {
+    var data = {
+      sort,
+      list
+    }
+
+    return sortDiaries(data)
+}
+
 
   useEffect(() => {
     return (() => {
@@ -91,8 +103,8 @@ const ProfileView = () => {
 
 
   return (
-    <div className='w-full bg-white bg-opacity-50 p-2 rounded-md flex flex-col md:flex-row md:columns-2 columns-1 gap-2'>
-      <div className='md:w-1/3 w-full shadow p-2 rounded-md'>
+    <div className='w-full rounded-md flex flex-col md:flex-row md:columns-2 columns-1 gap-2'>
+      <div className='md:w-1/3 w-full shadow p-2 rounded-md bg-white'>
         <div className=' profile-view-image m-auto w-full ' style={{ backgroundImage: `url(${HOST_URL + "user/images/"}${user.username})` }}>
           <div className='change-iamge-profile bg-white bg-opacity-40 w-full pb-2 flex flex-cols'>
             <label htmlFor='update_image_label' className='w-full text-center text-sm cursor-pointer'>{labelUpload}</label>
@@ -117,8 +129,8 @@ const ProfileView = () => {
         </ul>
         <CustomButton style={'bg-red-700 text-white'} title={"Logout"} onClick={logout} />
       </div>
-      <div className='md:w-2/3 w-full shadow p-2 rounded-md'>
-        <CardList styles={'columns-2 md:columns-3'} listDiaries={diaries} />
+      <div className='md:w-2/3 w-full shadow p-2 rounded-md bg-white bg-opacity-90'>
+        <CardList styles={'columns-2 lg:columns-3'} listDiaries={diaries} />
       </div>
       {
         imageSelected

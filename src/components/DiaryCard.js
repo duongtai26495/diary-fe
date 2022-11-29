@@ -4,7 +4,7 @@ import { HOST_URL } from '../api/constants'
 const DiaryCard = ({diary}) => {
 
   var image = HOST_URL + "images/" +diary.image_url
-
+  var content = diary.content
   return (
     <div className='card-box'>
       <Link to={`/diary=${diary.id}`}>
@@ -18,10 +18,16 @@ const DiaryCard = ({diary}) => {
       }
         </div>
         <div className='card-content-inner'>
-            <div className='card-content text-sm '  dangerouslySetInnerHTML={{ __html: diary.content.slice(0,155)}}>
-              
+            <div className='card-content text-sm '  dangerouslySetInnerHTML={{ __html: content?.length > 155 ? content?.slice(0,150) + '...' : content  }}>
             </div>
-            <span className='text-sm text-cyan-700'>...<em>read more</em></span>
+            {
+              content?.length > 150
+              ? 
+              <span className='text-sm text-cyan-700'><em>read more</em></span> 
+              : 
+              ""
+            }
+            
         </div>
         <p className='text-sm my-1 text-gray-500'>
           By: <em>{diary.author.username}</em>

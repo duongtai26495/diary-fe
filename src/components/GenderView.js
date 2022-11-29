@@ -23,7 +23,7 @@ const GenderView = ({ gender }) => {
     }
 
     return (
-        <p>Gender: {switchGender(gender)}</p>
+        <span>Gender: {switchGender(gender)}</span>
     )
 }
 
