@@ -210,8 +210,26 @@ body{
     bottom: 0;
     
 }
+.footer-wrapper{
+    position: absolute;
+    height: 100px;
+}
+.authen-box{
+    transition: 300ms ease-in-out;
+}
+#add_more{
+    left: 70%;
+    bottom: 20%;
+    transition: 300ms;
+    width: fit-content;
+}
+.bottom-nav {
+    bottom:10px;
+    height: fit-content;
+}
 @media only screen and (max-width: 1024px) {
     .card-box:hover {
         transform: none;
     }
+
 }

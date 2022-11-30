@@ -4,7 +4,7 @@ import { uploadImageAPI, newPostAPI, loadDiaryToUpdate, updateDiary } from '../a
 import CustomButton from '../components/CustomButton';
 import { ACCESS_TOKEN, HOST_URL } from '../api/constants';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useStore } from '../store';
+
 
 const UpdateDiary = () => {
 
@@ -13,8 +13,7 @@ const UpdateDiary = () => {
     const [content, setContent] = useState('')
     const [isDisplay, setDisplay] = useState()
     const [featureImage, setFeatureImage] = useState()
-    const [state, dispatch] = useStore()
-    const { userDataLocal } = state
+
     const titleRef = useRef()
     const [image_diary, setImageUrl] = useState()
     const [isLoading, setLoading] = useState(false)

@@ -19,7 +19,7 @@ export const SORT_CREATED_ASC = 'create_at_asc'
 export const SORT_CREATED_DESC = 'create_at_desc'
 export const SORT_LAST_EDITED_ASC = 'last_edited_asc'
 export const SORT_LAST_EDITED_DESC = 'last_edited_desc'
-
+export const GET_USER_DIARIES = 'get_user_diaries'
 export const UPDATE_USER_INFO = 'update_user_info'
 export const USER_DATA = 'user_data_local'
 

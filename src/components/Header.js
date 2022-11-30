@@ -6,9 +6,9 @@ import ProfileImageHeader from './ProfileImageHeader'
 
 const Header = () => {
   const [state, dispatch] = useStore()
-  const { userLoginState, userDataLocal } = state
+  const { userLoginState, userDataLocalState } = state
 
-  var user = userDataLocal ? userDataLocal : JSON.parse(localStorage.getItem(USER_LOCAL))
+  var user = userDataLocalState ? userDataLocalState : JSON.parse(localStorage.getItem(USER_LOCAL))
 
   return (
     <div className=''>

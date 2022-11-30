@@ -21,8 +21,14 @@ const getAllDiary = async () => {
 
 const loginWithUsernamePassword = async (User) => {
   const data = await getAccessToken(User);
-  const result = await getDataUserLogin(data);
-  return result
+  const user = await getDataUserLogin(data);
+  const diaries = await getAllDiaryByAuthor(data);
+
+  let dataUser = {
+    user,
+    diaries
+  }
+  return dataUser
 }
 
 const getAllDiaryByAuthor = async (data) => {

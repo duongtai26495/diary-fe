@@ -1,5 +1,5 @@
 import { 
-    GET_DIARIES, 
+    GET_USER_DIARIES, 
     SORT_DIARY,
     UPDATE_LOGIN_STATE, 
     SORT_LAST_EDITED_DESC,
@@ -9,9 +9,8 @@ import {
     
 const initState = {
     userLoginState: localStorage.getItem(LOCAL_LOGIN_STATE) ?? false,
-    userDataLocal : JSON.parse(localStorage.getItem(USER_LOCAL)) ?? {},
-    leftMenuBar: false,
-    diaries:[],
+    userDataLocalState : JSON.parse(localStorage.getItem(USER_LOCAL)) ?? {},
+    userDiaries: [],
     sort: SORT_LAST_EDITED_DESC
 }
 
@@ -23,20 +22,20 @@ function reducer(state, action) {
                 ...state.userLoginState,
                 userLoginState: action.payload
             }
-        case GET_DIARIES:
-            return {
-                ...state.diaries,
-                diaries: [...state.diaries,action.payload]
-            }
         case SORT_DIARY:
             return {
                 ...state.diaries,
                 sort: action.payload
             }
+        case GET_USER_DIARIES:
+            return {
+                ...state.diaries,
+                userDiaries : action.payload
+            }
         case USER_DATA:
             return {
-                ...state.userDataLocal,
-                userDataLocal: action.payload
+                ...state.userDataLocalState,
+                userDataLocalState: action.payload
             }
         default:
             throw new Error('Sai action')

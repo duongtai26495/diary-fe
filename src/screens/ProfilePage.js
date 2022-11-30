@@ -1,6 +1,7 @@
-import React from 'react'
-import { LOCAL_LOGIN_STATE, USER_LOCAL } from '../api/constants'
-import LoginForm from '../components/LoginForm'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { LOCAL_LOGIN_STATE } from '../api/constants'
+import AuthenForm from '../components/AuthenForm'
 import ProfileView from '../components/ProfileView'
 import { useStore } from '../store'
 
@@ -9,18 +10,12 @@ const ProfilePage = () => {
     const [state, dispatch] = useStore()
     const { userLoginState } = state
 
-
     return (
-        <div>
-            {
-                localStorage.getItem(LOCAL_LOGIN_STATE)
-                    ?
-                    <ProfileView/>
-                    :
-                    <LoginForm />
-            }
-
-        </div>
+        localStorage.getItem(LOCAL_LOGIN_STATE)
+        ?
+        <ProfileView />
+        :
+        <AuthenForm />
     )
 }
 
