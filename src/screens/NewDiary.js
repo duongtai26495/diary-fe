@@ -5,6 +5,7 @@ import CustomButton from '../components/CustomButton';
 import { ACCESS_TOKEN } from '../api/constants';
 import { useNavigate } from 'react-router-dom';
 
+import lazyload from '../images/lazyload-image.png'
 const NewDiary = () => {
 
     const [title, setTitle] = useState('')
@@ -14,9 +15,14 @@ const NewDiary = () => {
     const [isLoading, setLoading] = useState(false)
     const [saveResult, setSaveResult] = useState('')
     const navigate = useNavigate()
+    const inputImageRef = useRef()
     useEffect(() => {
         titleRef.current.focus()
     }, [])
+
+    const selectImageClick = () => {
+        inputImageRef.current.click()
+    }
 
     useEffect(() => {
         return (() => {
@@ -86,16 +92,21 @@ const NewDiary = () => {
                 <p className='text-sm'>Feature image</p>
                 <div className='preview-image-diary w-full my-2 rounded-md' style={{ backgroundImage: `url( ${featureImage != null ? featureImage.preview : ''})` }}>
 
-                    <div className='select-f-image bg-white bg-opacity-70  text-center flex-col'>
-                        <label htmlFor='select-image' className='cursor-pointer w-full p-2'>Select Image</label>
-                        <input className='hidden' id='select-image' type={'file'}
-                            onChange={(e) => {
-                                var file = e.target.files[0]
-                                file.preview = URL.createObjectURL(file)
-                                setFeatureImage(file)
-                            }}
-                        />
-                    </div>
+                    <img className='w-full' src={featureImage != null ? featureImage.preview : lazyload} />
+
+                    <CustomButton 
+                    onClick={()=> selectImageClick()} 
+                    title={'Select Image'}
+                    style={'w-full bg-cyan-600 text-white bottom-0 absolute bg-opacity-50 rounded-none'}
+                    />
+                    <input className='hidden w-full' id='select-image' type={'file'}
+                    ref={inputImageRef} 
+                        onChange={(e) => {
+                            var file = e.target.files[0]
+                            file.preview = URL.createObjectURL(file)
+                            setFeatureImage(file)
+                        }}
+                    />
 
                 </div>
             </div>

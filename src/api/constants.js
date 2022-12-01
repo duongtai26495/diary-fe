@@ -1,4 +1,4 @@
-export const HOST_URL = "http://192.168.1.18:8080/"
+export const HOST_URL = "http://192.168.1.16:8080/"
 
 export const UPDATE_LOGIN_STATE = 'update_login_state'
 export const LOCAL_LOGIN_STATE = 'local_login_state'

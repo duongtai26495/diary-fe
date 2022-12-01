@@ -18,7 +18,7 @@ function HomePage() {
       setDiaries(result)
     }
     getDiaryFromAPI()
-  },[diaries])
+  },[])
 
   const updateSort = list => {
       var data = {

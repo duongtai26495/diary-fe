@@ -103,9 +103,8 @@ body{
 
 .image-box{
     width: 100%;
-    max-height: 150px;
+    max-height: 600px;
     overflow: hidden;
-    border-radius: 5px;
     transition: 300ms ease-in;
 }
 
@@ -177,8 +176,8 @@ body{
     width: 300px;
     height: auto;
     position: absolute;
-    top: 50%;
-    right: 50%;
+    top: 0%;
+    right: 12%;
 }
 .sticky-side-bar {
     height: fit-content;
@@ -186,7 +185,7 @@ body{
     top: 1rem;
 }
 .feature-image-diary {
-    height: 600px;
+    height: 100%;
     width: 100%; 
     overflow: hidden;
     background-position: center;
@@ -196,7 +195,6 @@ body{
 }
 .preview-image-diary{
     width: 100%;
-    height: 400px;
     background-color: #06beb6;
     background-position: center center;
     background-size: cover;
@@ -227,6 +225,7 @@ body{
     bottom:10px;
     height: fit-content;
 }
+
 @media only screen and (max-width: 1024px) {
     .card-box:hover {
         transform: none;
