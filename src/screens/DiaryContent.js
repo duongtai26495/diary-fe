@@ -19,15 +19,12 @@ const DiaryContent = () => {
 
 
     useEffect(() => {
-        loadDiary()
-    }, [userDataLocalState])
-
+        
     const checkAuthorDisplayTools = (author) => {
         if (userDataLocalState) {
             userDataLocalState.username === author.username ? setIsAuthor(true) : setIsAuthor(false)
         }
     }
-
 
     const loadDiary = async () => {
         setLoadingPage(true)
@@ -50,6 +47,10 @@ const DiaryContent = () => {
         }
         setLoadingPage(false)
     }
+
+        loadDiary()
+    }, [userDataLocalState])
+
 
     const RenderContent = () => {
         return (

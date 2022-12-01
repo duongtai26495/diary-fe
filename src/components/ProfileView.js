@@ -17,29 +17,33 @@ const ProfileView = () => {
   var user = userDataLocalState ? userDataLocalState : JSON.parse(localStorage.getItem(USER_LOCAL))
 
   useEffect(() => {
+    const updateSort = list => {
+      var data = {
+        sort:SORT_LAST_EDITED_DESC,
+        list
+      }
+      return sortDiaries(data)
+    }
+  
+    const getDiary = async () => {
+      if (userDataLocalState) {
+        var data = {
+          token: localStorage.getItem(ACCESS_TOKEN)
+        }
+        const result = await getAllDiaryByAuthor(data)
+        const listDiaries = updateSort(result)
+        setDiaries(listDiaries)
+      }
+  
+    }
+    
+  
     getDiary()
   }, [userLoginState])
 
-  const getDiary = async () => {
-    if (userDataLocalState) {
-      var data = {
-        token: localStorage.getItem(ACCESS_TOKEN)
-      }
-      const result = await getAllDiaryByAuthor(data)
-      const listDiaries = updateSort(result)
-      setDiaries(listDiaries)
-    }
+  
 
-  }
-
-  const updateSort = list => {
-    var data = {
-      sort:SORT_LAST_EDITED_DESC,
-      list
-    }
-    return sortDiaries(data)
-  }
-
+  
 
 
   return (

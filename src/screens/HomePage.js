@@ -6,18 +6,19 @@ import CardList from '../components/CardList';
 import { SORT_CREATED_ASC, SORT_CREATED_DESC, SORT_LAST_EDITED_ASC, SORT_LAST_EDITED_DESC } from '../api/constants'
 function HomePage() {
 
-  useEffect(()=>{
-    getDiaryFromAPI()
-  },[])
-
   const [diaries, setDiaries] = useState([])
 
   const [sort, setSort] = useState(SORT_LAST_EDITED_DESC)
 
-  const getDiaryFromAPI = async () =>{
-    const result = await getAllDiary();
-    setDiaries(result)
-  }
+
+  useEffect(()=>{
+
+    const getDiaryFromAPI = async () =>{
+      const result = await getAllDiary();
+      setDiaries(result)
+    }
+    getDiaryFromAPI()
+  },[diaries])
 
   const updateSort = list => {
       var data = {
