@@ -1,13 +1,13 @@
-import { 
-  ACCESS_TOKEN, 
-  HOST_URL, 
-  LOCAL_LOGIN_STATE, 
-  USER_LOCAL, 
-  SORT_CREATED_ASC, 
-  SORT_CREATED_DESC, 
-  SORT_LAST_EDITED_ASC, 
+import {
+  ACCESS_TOKEN,
+  HOST_URL,
+  LOCAL_LOGIN_STATE,
+  USER_LOCAL,
+  SORT_CREATED_ASC,
+  SORT_CREATED_DESC,
+  SORT_LAST_EDITED_ASC,
   SORT_LAST_EDITED_DESC
- } from "./constants"
+} from "./constants"
 import axios from "axios";
 const runAPI = async (url) => {
   return (await fetch(url)).json();
@@ -20,15 +20,33 @@ const getAllDiary = async () => {
 }
 
 const loginWithUsernamePassword = async (User) => {
-  const data = await getAccessToken(User);
-  const user = await getDataUserLogin(data);
-  const diaries = await getAllDiaryByAuthor(data);
+    const result = await getAccessToken(User);
+    let response_status = result.status;
+    let response_data = {
+      status : response_status,
+      data : ""
+    }
+    if(response_status === 200){
+      
+      let token = result.data.access_token
+      let data = { username: User.username, token }
+      const user = await getDataUserLogin(data);
+      const diaries = await getAllDiaryByAuthor(data);
+  
+      let dataUser = {
+        user,
+        diaries
+      }
+      response_data = {
+        ...response_data,
+        data : dataUser
+      }
+      return response_data
+    }else{
+      return response_data
+    }
+    
 
-  let dataUser = {
-    user,
-    diaries
-  }
-  return dataUser
 }
 
 const getAllDiaryByAuthor = async (data) => {
@@ -66,12 +84,10 @@ const getAccessToken = async (User) => {
 
   return await axios(config)
     .then(function (response) {
-      let token = response.data.access_token
-      let data = { username: User.username, token }
-      return data
+      return response
     })
     .catch(function (error) {
-      console.log(error);
+      return error.response
     });
 }
 
@@ -98,8 +114,35 @@ const getDataUserLogin = async (data) => {
       return user
     })
     .catch(function (error) {
-      console.log(error);
+      return error
     });
+}
+
+
+const registerWithAPI = async (User) => {
+  let url = HOST_URL + "user/register"
+
+  var data = JSON.stringify(User);
+
+  var config = {
+    method: 'POST',
+    url,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data,
+  };
+
+
+  return await axios(config)
+    .then(function (response) {
+      return response.data
+    })
+    .catch(function (error) {
+      return error.data
+    });
+
+
 }
 
 const getDiaryByAuthor = async (data) => {
@@ -199,7 +242,7 @@ const newPostAPI = async (image_url, post) => {
     data,
   };
 
-  
+
   return await axios(config)
     .then(function (response) {
       return response.data
@@ -212,34 +255,34 @@ const newPostAPI = async (image_url, post) => {
 }
 
 const updateDiary = async (image_url, post) => {
-  let url = HOST_URL + "diary/update/"+post.id
+  let url = HOST_URL + "diary/update/" + post.id
   let token = localStorage.getItem(ACCESS_TOKEN)
   var data = JSON.stringify({
     ...post,
     image_url
   });
-  
+
   var config = {
     method: 'PUT',
     url,
-    headers: { 
-      'Authorization': 'Bearer '+token,
+    headers: {
+      'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
     },
     data,
   };
-  
+
   return await axios(config)
-  .then(function (response) {
-    return response.data
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-  
+    .then(function (response) {
+      return response.data
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
 }
 
-const sortDiaries = (data) =>{
+const sortDiaries = (data) => {
   let sort = data.sort;
   let list = data.list;
   var newList = []
@@ -255,7 +298,7 @@ const sortDiaries = (data) =>{
       newList = list.sort((a, b) => { return a.created_at.localeCompare(b.created_at) })
       break
     case SORT_CREATED_DESC:
-      newList = list.sort((a, b) => {return a.created_at.localeCompare(b.created_at)}).reverse()
+      newList = list.sort((a, b) => { return a.created_at.localeCompare(b.created_at) }).reverse()
       break
     default:
       newList = list.sort((a, b) => { return a.last_edited.localeCompare(b.last_edited) }).reverse()
@@ -284,5 +327,7 @@ export {
   getAllDiaryByAuthor,
   loadDiaryToUpdate,
   updateDiary,
-  sortDiaries
+  sortDiaries,
+  registerWithAPI,
+  getAccessToken
 }

@@ -7,6 +7,10 @@ import { useStore } from '../store'
 
 const ProfilePage = () => {
 
+    useEffect(()=>{
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+    },[])
+
     const [state, dispatch] = useStore()
     const { userLoginState } = state
 

@@ -12,16 +12,21 @@ const AuthenForm = () => {
 
     return (
         <div className='w-full flex flex-col md:flex-row gap-1 columns-2'>
-            <div className='w-full lg:w-1/3 bg-white bg-opacity-70 authen-wrapper p-5 rounded-md shadow-lg flex flex-row authen-box'>
+            <div className="w-full lg:w-1/2">
+            <div className='w-full bg-white bg-opacity-70 authen-wrapper p-5 rounded-md shadow-lg flex flex-row authen-box'>
                 {authenSwitch ?
                     <LoginForm />
                     :
                     <RegisterForm />}
             </div>
+            <div className="w-full switch flex flex-row">
+                <CustomButton title={!authenSwitch ? 'Have an account? Join now' : "Don't have an account? Register"} onClick={() => switchMode()} style={'bg-black text-white button-switch-mode '} />
 
-            <div className='w-full lg:w-2/3 p-2 bg-white rounded-md'>
-                <CustomButton title={!authenSwitch ? 'Login' : 'Register'} onClick={() => switchMode()} style={'bg-cyan-700 text-white'} />
             </div>
+            </div>
+           <div className='right-box-authen w-full lg:w-1/2 bg-white rounded-md'>
+
+           </div>
         </div>
 
     )

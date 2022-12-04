@@ -10,47 +10,51 @@ const LoginForm = () => {
   const [state, dispatch] = useStore()
   const { userDiaries, userDataLocalState } = state
   const [isLoading, setLoading] = useState(false)
-  const [username, setUsername] = useState()
-  const [password, setPassword] = useState()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [statusLogin, setStatusLogin] = useState('')
   const navigate = useNavigate()
 
   const LoginWithAPI = async () => {
-    setLoading(true)
+    if (username !== "" && password !== "") {
+      setLoading(true)
+      var User = {
+        username: username.toLowerCase(),
+        password
+      }
+      setStatusLogin('')
+      const result = await loginWithUsernamePassword(User);
+      if (result.status == 200) {
 
-    var User = {
-      username: username.toLowerCase(),
-      password
-    }
-    setStatusLogin('')
-    const result = await loginWithUsernamePassword(User);
+        var user = result.data.user
+        localStorage.setItem(USER_LOCAL, JSON.stringify(user))
+        localStorage.setItem(LOCAL_LOGIN_STATE, true)
+        localStorage.setItem(ACCESS_TOKEN, user.token)
 
-    if (result) {
-      var user = result.user
-      localStorage.setItem(USER_LOCAL, JSON.stringify(user))
-      localStorage.setItem(LOCAL_LOGIN_STATE, true)
-      localStorage.setItem(ACCESS_TOKEN, user.token)
+        dispatch(updateLoginState(true))
+        navigate("/")
+      } else {
+        setStatusLogin("Login Fail. Username or Password incorrect")
+      }
 
-      dispatch(updateLoginState(true))
       setLoading(false)
-      navigate("/")
-
     }
+
   }
 
   return (
-      <div className='w-full '>
-        <p className='text-xl text-center mb-5'>Welcome back</p>
-        <div className='form-authen w-full'>
-          <label className='w-full text-sm p-1' htmlFor="username">Username</label>
-          <input onChange={e => setUsername(e.target.value)} className='w-full rounded-md p-2 mb-2' id='username' type={'text'} placeholder="Username" />
-          <label className='w-full text-sm p-1' htmlFor="username">Password</label>
-          <input security={'true'} onChange={e => setPassword(e.target.value)} className='w-full rounded-md p-2 mb-2' id='password' type={'password'} placeholder="Password" />
-          <CustomButton onClick={() => LoginWithAPI()} isLoading={isLoading} style={"bg-cyan-700 text-white text-base"} title={"Login"} />
-          <p className='text-base text-red-500 m-auto text-center my-1 '>{statusLogin}</p>
-          <p className='text-sm my-2'><Link to={"/fogot"} >Forgot password ?</Link></p>
-        </div>
+    <div className='w-full '>
+      <p className='text-xl text-center mb-5'>Welcome back</p>
+      <div className='form-authen w-full'>
+        <label className='w-full text-sm p-1' htmlFor="username">Username</label>
+        <input disabled={isLoading === true ? true : false} onChange={e => setUsername(e.target.value)} className='w-full rounded-md p-2 mb-2' id='username' type={'text'} placeholder="Username" />
+        <label className='w-full text-sm p-1' htmlFor="username">Password</label>
+        <input disabled={isLoading === true ? true : false} security={'true'} onChange={e => setPassword(e.target.value)} className='w-full rounded-md p-2 mb-2' id='password' type={'password'} placeholder="Password" />
+        <CustomButton onClick={() => LoginWithAPI()} isLoading={isLoading} style={"bg-cyan-700 text-white text-base mt-3"} title={"Login"} />
+        <p className='text-base text-red-500 m-auto text-center my-1 '>{statusLogin}</p>
+        <p className='text-sm my-2'><Link to={"/forgot"} >Forgot password ?</Link></p>
       </div>
+    </div>
   )
 }
 

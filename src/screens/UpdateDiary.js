@@ -107,7 +107,7 @@ const UpdateDiary = () => {
                     <input id='yes' type="radio" onChange={() => setDisplay(true)} checked={isDisplay == true} value={true} name="true" /> <label htmlFor='yes' className='ml-1'>Yes</label>
                     <input id='no' className='ml-2' onChange={() => setDisplay(false)} checked={isDisplay == false} type="radio" value={false} name="false" /> <label htmlFor='no' className='ml-1'>No</label>
                 </div>
-                <CustomButton isLoading={isLoading} title={'Save & Close'} onClick={() => updatePost()} style={'mt-5 w-full bg-cyan-700 text-white'} />
+                <CustomButton isLoading={isLoading} title={'Save & Close'} onClick={() => updatePost()} style={'mt-5 w-full bg-cyan-700 text-white mt-3'} />
                 {
                     saveResult !== '' ? <p className='w-full text-red-700 text-center p-3'><em>{saveResult}</em></p> : ""
                 }

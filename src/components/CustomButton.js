@@ -15,9 +15,9 @@ const CustomButton = ({isLoading, onClick = () =>{}, title, icon, style}) => {
             </div>
         )
     }
-    var styles = style+' btn btn-component w-full rounded-md p-2 mt-3 flex flex-col items-center justify-center'
+    var styles = style+' transition-all hover:bg-opacity-90 btn btn-component w-full rounded-md p-2 flex flex-col items-center justify-center'
   return (
-    <button className={styles} onClick={onClick}>
+    <button disabled={isLoading === true ? true : false} className={styles} onClick={onClick}>
         {isLoading ? <LoadingSpinner/> : <ContentBtn />}
     </button>
   )

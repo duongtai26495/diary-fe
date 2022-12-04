@@ -1,13 +1,14 @@
 import React from 'react'
 import { HOST_URL } from '../api/constants'
+import default_image from '../images/default.png'
+const ProfileImageHeader = ({user}) => {
 
-const ProfileImageHeader = ({username}) => {
-  
-    let url = HOST_URL+"user/images/"+username
+  var image_url = user.profile_image ? HOST_URL + "user/images/"+ user.username : default_image
+
   return (
-    <div className='flex flex-row'>
-<div className='profile_image_header' style={{backgroundImage: `url(${url})`}}></div>
-<p className='text-base mx-1'>{username}</p>
+    <div className='flex flex-row w-full'>
+<div className='profile_image_header' style={{backgroundImage: `url(${image_url})`}}></div>
+<p className='text-base mx-1'>{user.full_name}</p>
 </div>
     
   )

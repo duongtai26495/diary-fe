@@ -48,7 +48,7 @@ const ProfileView = () => {
 
   return (
     <div className='w-full rounded-md flex flex-col md:flex-row md:columns-2 columns-1 gap-2'>
-      <div className='md:w-1/3 h-fit w-full shadow p-2 rounded-md bg-white sticky top-5'>
+      <div className='md:w-1/3 h-fit w-full shadow p-2 rounded-md bg-white sticky top-2 lg:top-16'>
         <ProfileCard user={user} />
       </div>
       <div className='md:w-2/3 w-full shadow p-2 rounded-md bg-white bg-opacity-90'>

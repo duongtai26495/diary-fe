@@ -44,6 +44,7 @@ body{
         var(--primary-color), 
         var(--secondary-color));
 }
+
 .app-name{
     font-family: 'DancingScript';
     text-transform: capitalize;
@@ -52,21 +53,13 @@ body{
 .header-wrapper{
     width: 100%;
 }
+.header-desktop{
+    z-index: 999;
+}
 .container{
     max-width: 1200px;
 }
-.header-wrapper-inner{
-    margin: 10px auto 0px auto;
-    border-radius: 10px;
-    padding:10px 15px;
-    background-color: rgba(255, 255, 255, .6);
-    box-shadow: 2px 2px 4px 0px var(--shadow-color);
-}
-.menu-wrapper{
-    flex-direction: row;
-    flex: 1;
-    justify-content: center;
-}
+
 .menu-item{
     letter-spacing: 1px;
     margin: 5px 10px;
@@ -173,16 +166,12 @@ body{
 }
 
 .preview-select-image{
-    width: 300px;
     height: auto;
-    position: absolute;
-    top: 0%;
-    right: 12%;
+    margin: auto;
 }
 .sticky-side-bar {
     height: fit-content;
     max-height: 500px;
-    top: 1rem;
 }
 .feature-image-diary {
     height: 100%;
@@ -216,19 +205,38 @@ body{
     transition: 300ms ease-in-out;
 }
 #add_more{
-    left: 70%;
-    bottom: 20%;
     transition: 300ms;
-    width: fit-content;
 }
 .bottom-nav {
-    bottom:10px;
+    width: 100%;
+    bottom:-100px;
     height: fit-content;
+    transition: 300ms ease-in;
 }
-
+.button-switch-mode{
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+.authen-box{
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+.right-box-authen {
+    height: 500px;
+}
+.slide-up{
+    bottom:0px;
+}
+.remove-preview{
+    top:20px;
+    right:20px;
+    z-index: 99;
+}
 @media only screen and (max-width: 1024px) {
     .card-box:hover {
         transform: none;
     }
-
+    body{
+        padding-bottom: 100px;
+    }
 }

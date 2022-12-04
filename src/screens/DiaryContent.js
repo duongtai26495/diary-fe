@@ -89,7 +89,7 @@ const DiaryContent = () => {
                     </div>
                 </div>
             </div>
-            <div className='sticky-side-bar w-full md:w-1/3 p-2 rounded-md bg-white sticky shadow'>
+            <div className='sticky-side-bar w-full md:w-1/3 p-2 rounded-md bg-white sticky top-2 lg:top-16 shadow'>
 
                 <AuthorBox author={author} />
 

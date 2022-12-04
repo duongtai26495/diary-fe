@@ -12,20 +12,21 @@ import BottomNav from './components/BottomNav';
 
 const App = () => {
 
+
+
   const [state, dispatch] = useStore()
   const { userLoginState } = state
 
   useEffect(() => {
     dispatch(loadUserLocal(JSON.parse(localStorage.getItem(USER_LOCAL))))
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
   }, [userLoginState])
 
   return (
     <div className='w-full pt-2'>
       <div className='container m-auto px-2  relative xl:px-0'>
-        <header className="header-wrapper">
           <Header />
-          <TopBar />
-        </header>
+          {localStorage.getItem(LOCAL_LOGIN_STATE) ? <TopBar /> : ""}
         <div className='mt-5'>
           <Routes>
             <Route path='/' element={<HomePage />} />
@@ -35,8 +36,8 @@ const App = () => {
             <Route path='/diary/edit/id=:id' element={<UpdateDiary />} />
           </Routes>
         </div>
-        {localStorage.getItem(LOCAL_LOGIN_STATE) ? <BottomNav /> : ""}
       </div>
+       <BottomNav />
       {/* <Footer /> */}
     </div>
   )
