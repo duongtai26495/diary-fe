@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { HOST_URL, SORT_LAST_EDITED_DESC, USER_LOCAL } from '../api/constants'
-import { logoutUser, uploadImageAPI } from '../api/functions'
+import { ACCESS_TOKEN, HOST_URL, SORT_LAST_EDITED_DESC, USERNAME_LOCAL, USER_LOCAL } from '../api/constants'
+import { getDataUserLogin, logoutUser, uploadImageAPI } from '../api/functions'
 import { useStore } from '../store'
 import default_image from '../images/default.png'
 import { loadUserLocal, updateLoginState } from '../store/actions'
@@ -14,7 +14,7 @@ const ProfileCard = ({ user }) => {
   const { userDataLocalState } = state
   const [labelUpload, setLabelUpload] = useState('Edit Image')
   const [imageSelected, setImageSelected] = useState()
-  let image_url = user.profile_image ? HOST_URL + "user/images/" + user.username : default_image
+  const [image_url, setImageUrl] = useState(user.profile_image ? HOST_URL + "user/images/" + user.username : default_image)
   const logout = () => {
     logoutUser()
     dispatch(updateLoginState(false))
@@ -24,16 +24,12 @@ const ProfileCard = ({ user }) => {
     return (() => {
       imageSelected && URL.revokeObjectURL(imageSelected.preview)
     })
-  }, [imageSelected])
+  }, [imageSelected, JSON.parse(localStorage.getItem(USER_LOCAL))])
 
   const clearSelectedImage = () => {
     imageSelected && URL.revokeObjectURL(imageSelected.preview)
     setImageSelected()
   }
-
-  useEffect(() => {
-
-  }, [user])
 
   const confirmUpload = async () => {
     if (imageSelected && userDataLocalState) {
@@ -44,14 +40,22 @@ const ProfileCard = ({ user }) => {
       }
 
       const result = await uploadImageAPI(data)
-      if (result) {
+      if (result != null) {
         let user_local = JSON.parse(localStorage.getItem(USER_LOCAL))
-        user_local.profile_image = result
-        localStorage.setItem(USER_LOCAL, JSON.stringify(user_local))
-        dispatch(loadUserLocal(user_local))
+        var data_user = {
+          token: user_local.token,
+          username: user_local.username
+        }
+        const user = await getDataUserLogin(data_user);
+        if (user != null) {
+          localStorage.removeItem(USER_LOCAL)
+          localStorage.setItem(USER_LOCAL, JSON.stringify(user))
+          dispatch(loadUserLocal(user))
+        }
+        setLabelUpload("Image changed")
+        clearSelectedImage()
       }
-      setLabelUpload("Image changed")
-      clearSelectedImage()
+
     }
 
   }

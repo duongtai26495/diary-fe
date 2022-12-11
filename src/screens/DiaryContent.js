@@ -7,7 +7,7 @@ import { getDiary } from '../api/functions'
 import AuthorBox from '../components/AuthorBox'
 import { useStore } from '../store'
 
-import lazyload from '../images/lazyload-image.png'
+import default_image from '../images/default_diary.png'
 const DiaryContent = () => {
 
     const [state, dispatch] = useStore()
@@ -17,7 +17,7 @@ const DiaryContent = () => {
     const [author, setAuthor] = useState({})
     const [isAuthor, setIsAuthor] = useState(false)
     const navigate = useNavigate()
-
+    const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
 
@@ -72,13 +72,10 @@ const DiaryContent = () => {
                 <p className='text-xl font-bold mb-5 m-auto'>{diary.title}</p>
                 {
                     diary.image_url !== "" ?
-                        <LazyLoadImage
-                            className='w-full rounded-md feature-img m-auto'
+                        <img   className='w-full rounded-md feature-img m-auto'
                             alt={diary.title}
-                            visibleByDefault={lazyload}
-                            effect="blur"
-                            
-                            src={HOST_URL + 'images/' + diary.image_url} />
+                            onLoad={()=> setLoaded(true)}
+                            src={loaded ? HOST_URL + 'images/' + diary.image_url : default_image} />
                         : ""
                 }
 

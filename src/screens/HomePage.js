@@ -9,31 +9,33 @@ function HomePage() {
   const [diaries, setDiaries] = useState([])
 
   const [sort, setSort] = useState(SORT_LAST_EDITED_DESC)
+  const [isLoaded, setLoaded] = useState(false)
 
-
-  useEffect(()=>{
-
-    const getDiaryFromAPI = async () =>{
+  useEffect(() => {
+    const getDiaryFromAPI = async () => {
       const result = await getAllDiary();
       setDiaries(result)
+      setLoaded(true)
     }
     getDiaryFromAPI()
-  },[])
+  }, [diaries])
 
   const updateSort = list => {
-      var data = {
-        sort,
-        list
-      }
+    var data = {
+      sort,
+      list
+    }
 
-      const result = sortDiaries(data)
-      return result
+    const result = sortDiaries(data)
+    return result
   }
 
-
   return (
+    isLoaded == true
+      ?
       <CardList styles={'columns-2 md:columns-3 lg:columns-4 xl:columns-5'} listDiaries={updateSort(diaries)} />
-      
+      :
+      <h1>Loading</h1>
   );
 }
 

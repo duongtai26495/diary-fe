@@ -95,7 +95,6 @@ const getDataUserLogin = async (data) => {
 
   let url = HOST_URL + "user/profile/" + data.username;
 
-
   var config = {
     method: 'GET',
     url,
@@ -111,6 +110,7 @@ const getDataUserLogin = async (data) => {
         ...user,
         token: data.token
       }
+      
       return user
     })
     .catch(function (error) {

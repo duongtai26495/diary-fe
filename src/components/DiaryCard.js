@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { HOST_URL } from '../api/constants'
 import { useStore } from '../store'
 import lazyload from '../images/lazyload-image.png'
+import default_image from '../images/default_diary.png'
 const DiaryCard = ({ diary }) => {
 
 
@@ -11,6 +12,7 @@ const DiaryCard = ({ diary }) => {
   const { userDataLocalState } = state
   const [author, setAuthor] = useState(diary.author)
   const [isAuthor, setIsAuthor] = useState(false)
+  const [loaded,setLoaded] = useState(false)
   useEffect(() => {
     checkAuthor()
   }, [author])
@@ -38,13 +40,11 @@ const DiaryCard = ({ diary }) => {
         <div className='image-box my-5'>
           {
             diary.image_url !== "" ?
-              <LazyLoadImage
-                className='image-card rounded-md m-auto w-full'
+              <img 
+              className='image-card rounded-md m-auto w-full'
                 alt={diary.title}
-                visibleByDefault={lazyload}
-                placeholderSrc={lazyload}
-                effect="blur"
-                src={image} />
+                onLoad={()=>setLoaded(true)}
+                src={ loaded ? image : default_image}  />
               : ""
           }
         </div>

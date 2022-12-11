@@ -38,13 +38,15 @@
 }
 body{
     font-family: 'Nunito';
-    min-height: 100vh;
     background-image: 
     linear-gradient(300deg,
         var(--primary-color), 
         var(--secondary-color));
+    
 }
-
+#main-content{
+    height: 100vh;
+}
 .app-name{
     font-family: 'DancingScript';
     text-transform: capitalize;
@@ -199,7 +201,6 @@ body{
 }
 .footer-wrapper{
     position: absolute;
-    height: 100px;
 }
 .authen-box{
     transition: 300ms ease-in-out;
@@ -231,6 +232,9 @@ body{
     top:20px;
     right:20px;
     z-index: 99;
+}
+.loading-screen{
+    z-index: 9999;
 }
 @media only screen and (max-width: 1024px) {
     .card-box:hover {

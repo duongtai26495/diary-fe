@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <React.Fragment>
-      <div className='flex lg:sticky top-0 p-2 bg-opacity-80 bg-white m-auto hidden md:flex flex-row items-center justify-between shadow rounded-md header-desktop'>
+      <div className='lg:sticky top-0 p-2 bg-opacity-80 bg-white m-auto hidden md:flex flex-row items-center justify-between shadow rounded-md header-desktop'>
         <LogoHeader />
         <ul className='menu-wrapper flex '>
           <li className='menu-item cursor-pointer text-sm xl:text-base'><Link to={"/"}>Home</Link></li>

@@ -9,10 +9,10 @@ import { loadUserLocal } from './store/actions';
 import { LOCAL_LOGIN_STATE, USER_LOCAL } from './api/constants';
 import AddButton from './components/AddButton';
 import BottomNav from './components/BottomNav';
+import Footer from './components/Footer';
+import LoadingScreen from './components/LoadingScreen';
 
 const App = () => {
-
-
 
   const [state, dispatch] = useStore()
   const { userLoginState } = state
@@ -23,7 +23,8 @@ const App = () => {
   }, [userLoginState])
 
   return (
-    <div className='w-full pt-2'>
+    <React.Fragment>
+<div className='w-full pt-2'>
       <div className='container m-auto px-2  relative xl:px-0'>
           <Header />
           {localStorage.getItem(LOCAL_LOGIN_STATE) ? <TopBar /> : ""}
@@ -38,8 +39,11 @@ const App = () => {
         </div>
       </div>
        <BottomNav />
-      {/* <Footer /> */}
     </div>
+      {/* <Footer /> */}
+    {/* <LoadingScreen /> */}
+    </React.Fragment>
+    
   )
 }
 
