@@ -3,7 +3,7 @@ import { HOST_URL } from '../api/constants'
 import default_image from '../images/default.png'
 const ProfileImageHeader = ({user}) => {
 
-  var image_url = user.profile_image ? HOST_URL + "user/images/"+ user.username : default_image
+  var image_url = user.profile_image ? HOST_URL + "image/profile/"+ user.profile_image : default_image
 
   return (
     <div className='flex flex-row w-full'>

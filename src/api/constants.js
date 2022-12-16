@@ -1,4 +1,4 @@
-export const HOST_URL = "http://192.168.1.11:8080/"
+export const HOST_URL = "http://192.168.1.5:8080/"
 
 export const UPDATE_LOGIN_STATE = 'update_login_state'
 export const LOCAL_LOGIN_STATE = 'local_login_state'
@@ -22,7 +22,11 @@ export const SORT_LAST_EDITED_DESC = 'last_edited_desc'
 export const GET_USER_DIARIES = 'get_user_diaries'
 export const UPDATE_USER_INFO = 'update_user_info'
 export const USER_DATA = 'user_data_local'
+export const UPDATE_COMMENT = 'update_comment'
+export const LOAD_DIARIES_LIST = 'load_diaries_list'
 
+export const DIARY_PAGINATION_HOME = 'diary_pagination_home'
+export const MAX_PAGE_DIARY = 'max_page_diary'
 export const CODE_LOGIN_FAIL = 500
 export const CODE_NOT_PERMISSION = 401
 export const CODE_SUCCESS = 200

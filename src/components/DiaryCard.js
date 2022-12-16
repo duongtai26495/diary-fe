@@ -30,7 +30,7 @@ const DiaryCard = ({ diary }) => {
     )
   }
 
-  var image = HOST_URL + "images/" + diary.image_url
+  var image = HOST_URL + "image/" + diary.image_url
   var content = diary.content
   return (
     <div className={'card-box'}>
@@ -44,7 +44,9 @@ const DiaryCard = ({ diary }) => {
               className='image-card rounded-md m-auto w-full'
                 alt={diary.title}
                 onLoad={()=>setLoaded(true)}
-                src={ loaded ? image : default_image}  />
+                src={ loaded ? image : default_image}  
+                onError={(e)=> { e.target.onerror = null; e.target.src = default_image}}
+                />
               : ""
           }
         </div>

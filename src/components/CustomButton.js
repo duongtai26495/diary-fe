@@ -1,6 +1,6 @@
 import React from 'react'
 import spinner from '../images/loading_spinner.gif'
-const CustomButton = ({isLoading, onClick = () =>{}, title, icon, style}) => {
+const CustomButton = ({isLoading = false, onClick = () =>{}, title, icon, style, disabled = false}) => {
     const LoadingSpinner = () =>{
         return (
             <img src={spinner} className='img-spinner' />
@@ -17,7 +17,7 @@ const CustomButton = ({isLoading, onClick = () =>{}, title, icon, style}) => {
     }
     var styles = style+' transition-all hover:bg-opacity-90 btn btn-component w-full rounded-md p-2 flex flex-col items-center justify-center'
   return (
-    <button disabled={isLoading === true ? true : false} className={styles} onClick={onClick}>
+    <button disabled={isLoading === true ? true : false || disabled} className={styles} onClick={onClick}>
         {isLoading ? <LoadingSpinner/> : <ContentBtn />}
     </button>
   )

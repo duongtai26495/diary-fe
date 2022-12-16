@@ -6,46 +6,52 @@ import {
   SORT_CREATED_ASC,
   SORT_CREATED_DESC,
   SORT_LAST_EDITED_ASC,
-  SORT_LAST_EDITED_DESC
+  SORT_LAST_EDITED_DESC,
+  MAX_PAGE_DIARY
 } from "./constants"
 import axios from "axios";
+
+
 const runAPI = async (url) => {
   return (await fetch(url)).json();
 }
 
-const getAllDiary = async () => {
-  let url = HOST_URL
+const getAllDiary = async (pagination) => {
+  let url = HOST_URL+ "?page="+pagination
   const data = await runAPI(url);
-  return data
+  var diaries = data.content
+  var maxPage = data.totalPages
+  localStorage.setItem(MAX_PAGE_DIARY, maxPage)
+  return diaries
 }
 
 const loginWithUsernamePassword = async (User) => {
-    const result = await getAccessToken(User);
-    let response_status = result.status;
-    let response_data = {
-      status : response_status,
-      data : ""
+  const result = await getAccessToken(User);
+  let response_status = result.status;
+  let response_data = {
+    status: response_status,
+    data: ""
+  }
+  if (response_status === 200) {
+
+    let token = result.data.access_token
+    let data = { username: User.username, token }
+    const user = await getDataUserLogin(data);
+    const diaries = await getAllDiaryByAuthor(data);
+
+    let dataUser = {
+      user,
+      diaries
     }
-    if(response_status === 200){
-      
-      let token = result.data.access_token
-      let data = { username: User.username, token }
-      const user = await getDataUserLogin(data);
-      const diaries = await getAllDiaryByAuthor(data);
-  
-      let dataUser = {
-        user,
-        diaries
-      }
-      response_data = {
-        ...response_data,
-        data : dataUser
-      }
-      return response_data
-    }else{
-      return response_data
+    response_data = {
+      ...response_data,
+      data: dataUser
     }
-    
+    return response_data
+  } else {
+    return response_data
+  }
+
 
 }
 
@@ -110,7 +116,7 @@ const getDataUserLogin = async (data) => {
         ...user,
         token: data.token
       }
-      
+
       return user
     })
     .catch(function (error) {
@@ -282,7 +288,7 @@ const updateDiary = async (image_url, post) => {
 
 }
 
-const sortDiaries = (data) => {
+const sortList = (data) => {
   let sort = data.sort;
   let list = data.list;
   var newList = []
@@ -308,6 +314,47 @@ const sortDiaries = (data) => {
   return newList
 }
 
+
+const getCommentsOfDiary = async (id) => {
+  let url = HOST_URL + "diary/comment/"+id
+  
+  const result = await runAPI(url)
+  return result;
+}
+
+const getCommentById = async (id) => {
+  let url = HOST_URL + "diary/comment/id="+id
+
+  const result = await runAPI(url)
+  return result;
+}
+
+const saveNewComment = async (data) => {
+  let url = HOST_URL + "diary/comment/add"
+
+  var data = JSON.stringify(data);
+  
+  var config = {
+    method: 'POST',
+    url,
+    headers: { 
+      'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN),
+      'Content-Type': 'application/json'
+    },
+    data,
+  };
+  
+ return await axios(config)
+  .then(function (response) {
+    return response.data;
+  })
+  .catch(function (error) {
+    return error
+  });
+
+}
+
+
 const logoutUser = () => {
   localStorage.removeItem(USER_LOCAL)
   localStorage.removeItem(ACCESS_TOKEN)
@@ -327,7 +374,10 @@ export {
   getAllDiaryByAuthor,
   loadDiaryToUpdate,
   updateDiary,
-  sortDiaries,
+  sortList,
   registerWithAPI,
-  getAccessToken
+  getAccessToken,
+  getCommentsOfDiary,
+  getCommentById,
+  saveNewComment,
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ACCESS_TOKEN, HOST_URL, SORT_LAST_EDITED_DESC, USER_LOCAL } from '../api/constants'
-import { getAllDiaryByAuthor, getDiaryByAuthor, logoutUser, sortDiaries, uploadImageAPI } from '../api/functions'
+import { getAllDiaryByAuthor, getDiaryByAuthor, logoutUser, sortList, uploadImageAPI } from '../api/functions'
 import { useStore } from '../store'
 import { loadUserLocal, updateLoginState } from '../store/actions'
 import CustomButton from './CustomButton'
@@ -22,7 +22,7 @@ const ProfileView = () => {
         sort:SORT_LAST_EDITED_DESC,
         list
       }
-      return sortDiaries(data)
+      return sortList(data)
     }
   
     const getDiary = async () => {

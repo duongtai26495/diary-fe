@@ -1,39 +1,42 @@
 
 import { useState, useEffect } from 'react';
-import { getAllDiary, sortDiaries } from '../api/functions';
+import { MAX_PAGE_DIARY } from '../api/constants';
+import { getAllDiary } from '../api/functions';
 import CardList from '../components/CardList';
 
-import { SORT_CREATED_ASC, SORT_CREATED_DESC, SORT_LAST_EDITED_ASC, SORT_LAST_EDITED_DESC } from '../api/constants'
+import PaginationControls from '../components/PaginationControls';
+import { useStore } from '../store';
+import { loadAllDiaries, setDiaryPagination } from '../store/actions';
 function HomePage() {
 
-  const [diaries, setDiaries] = useState([])
-
-  const [sort, setSort] = useState(SORT_LAST_EDITED_DESC)
+  const [state, dispatch] = useStore()
+  const { listDiaries, diaryPagination } = state
   const [isLoaded, setLoaded] = useState(false)
 
   useEffect(() => {
     const getDiaryFromAPI = async () => {
-      const result = await getAllDiary();
-      setDiaries(result)
+      const result = await getAllDiary(diaryPagination);
+      dispatch(loadAllDiaries(result))
       setLoaded(true)
     }
     getDiaryFromAPI()
-  }, [diaries])
+  }, [diaryPagination])
 
-  const updateSort = list => {
-    var data = {
-      sort,
-      list
-    }
 
-    const result = sortDiaries(data)
-    return result
-  }
+
 
   return (
     isLoaded == true
       ?
-      <CardList styles={'columns-2 md:columns-3 lg:columns-4 xl:columns-5'} listDiaries={updateSort(diaries)} />
+      <>
+        <CardList styles={'columns-2 md:columns-3 lg:columns-4 '} listDiaries={listDiaries} />
+        {
+          Number(localStorage.getItem(MAX_PAGE_DIARY)) >= 1 
+          &&
+          <PaginationControls />
+        }
+      </>
+
       :
       <h1>Loading</h1>
   );

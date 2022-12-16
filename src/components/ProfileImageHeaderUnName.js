@@ -4,7 +4,7 @@ import default_image from '../images/default.png'
 const ProfileImageHeaderUnName = ({user}) => {
   var image_url = default_image
   if(user){
-    image_url = user.profile_image ? HOST_URL + "user/images/"+ user.username : default_image
+    image_url = user.profile_image ? HOST_URL + "user/image/"+ user.username : default_image
   }
 
 

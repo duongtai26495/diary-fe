@@ -9,11 +9,14 @@ const CardList = ({listDiaries, styles}) => {
     return (
         <div className={'list-card-wrapper '+styles}>
            {
+            diaries ?
              diaries?.map((diary, index) => {
                 return (
                     <DiaryCard key={diary.id} diary={diary} />
                 )
             })
+            :
+            ""
            }
         </div>
 

@@ -14,7 +14,7 @@ const ProfileCard = ({ user }) => {
   const { userDataLocalState } = state
   const [labelUpload, setLabelUpload] = useState('Edit Image')
   const [imageSelected, setImageSelected] = useState()
-  const [image_url, setImageUrl] = useState(user.profile_image ? HOST_URL + "user/images/" + user.username : default_image)
+  const [image_url, setImageUrl] = useState(user.profile_image ? HOST_URL + "image/profile/" + user.profile_image : default_image)
   const logout = () => {
     logoutUser()
     dispatch(updateLoginState(false))
@@ -24,7 +24,7 @@ const ProfileCard = ({ user }) => {
     return (() => {
       imageSelected && URL.revokeObjectURL(imageSelected.preview)
     })
-  }, [imageSelected, JSON.parse(localStorage.getItem(USER_LOCAL))])
+  }, [imageSelected])
 
   const clearSelectedImage = () => {
     imageSelected && URL.revokeObjectURL(imageSelected.preview)
@@ -48,8 +48,8 @@ const ProfileCard = ({ user }) => {
         }
         const user = await getDataUserLogin(data_user);
         if (user != null) {
-          localStorage.removeItem(USER_LOCAL)
           localStorage.setItem(USER_LOCAL, JSON.stringify(user))
+          setImageUrl(HOST_URL + "image/profile/"+ user.profile_image)
           dispatch(loadUserLocal(user))
         }
         setLabelUpload("Image changed")

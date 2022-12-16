@@ -7,10 +7,7 @@ import TopBar from './components/TopBar';
 import { useStore } from './store';
 import { loadUserLocal } from './store/actions';
 import { LOCAL_LOGIN_STATE, USER_LOCAL } from './api/constants';
-import AddButton from './components/AddButton';
 import BottomNav from './components/BottomNav';
-import Footer from './components/Footer';
-import LoadingScreen from './components/LoadingScreen';
 
 const App = () => {
 
@@ -24,7 +21,7 @@ const App = () => {
 
   return (
     <React.Fragment>
-<div className='w-full pt-2'>
+<div className='w-full pt-2 pb-20 lg:pb-5'>
       <div className='container m-auto px-2  relative xl:px-0'>
           <Header />
           {localStorage.getItem(LOCAL_LOGIN_STATE) ? <TopBar /> : ""}

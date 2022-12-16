@@ -236,6 +236,21 @@ body{
 .loading-screen{
     z-index: 9999;
 }
+.author-comment-img{
+    width: 25px;
+    height: 25px;
+    background-color: #06beb6;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: 300ms ease-in;
+    border-radius: 50%;
+}
+.feature-img{
+    min-height: 300px;
+    max-height: 600px;
+    object-fit: cover;
+}
 @media only screen and (max-width: 1024px) {
     .card-box:hover {
         transform: none;

@@ -118,7 +118,7 @@ const UpdateDiary = () => {
                 <p className='text-sm'>Feature image</p>
                 <div className='preview-image-diary w-full my-2 rounded-md'>
 
-                    <img className='w-full' src={featureImage != null ? featureImage.preview : HOST_URL + "images/" + image_diary} />
+                    <img className='w-full' src={featureImage != null ? featureImage.preview : HOST_URL + "image/" + image_diary} />
 
                     <CustomButton 
                     onClick={()=> inputImageRef.current.click()} 
